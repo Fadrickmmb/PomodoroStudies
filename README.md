@@ -1,7 +1,9 @@
 Description
+
 This project aims to develop a study app to help users optimize and organize their study time, using the Pomodoro method and to-do lists. The application will allow users to create study to-do lists and track their progress according to the number of pomodoros completed, they will also win samurai badges depending on their completed tasks and to-do’s.
 
 Scope
+
 1. Goals
 - To improve study efficiency: Use the Pomodoro method to promote more focused and productive study sessions.
 - Organization of study tasks: Allow users to create, manage and share study lists.
@@ -36,4 +38,5 @@ c. Security:
   - Data backup and recovery.
 
 Final considerations
+
 This project aims to create an application that not only helps users to better manage their study time, but also motivates them by tracking and sharing their progress. 
