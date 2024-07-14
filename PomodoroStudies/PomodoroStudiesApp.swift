@@ -17,7 +17,7 @@ struct PomodoroStudiesApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            SplashView()
         }
     }
 }
