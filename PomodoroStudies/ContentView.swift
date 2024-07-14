@@ -18,8 +18,7 @@ struct ContentView: View {
         if userID == ""{
             AuthView()
         }else{
-            HomeView()
-            
+            AuthView()
         }
         
     }
