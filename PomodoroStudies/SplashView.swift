@@ -17,9 +17,7 @@ struct SplashView: View {
             if self.isActive{
                 AuthView()
             }else{
-                Rectangle()
-                    .background(Color.black)
-                Image("Pomodoro Studies")
+                Image("PomodoroNinjaLogo")
                     .resizable()
                     .scaledToFill()
                     .frame(width: 250, height: 250)
