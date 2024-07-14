@@ -13,6 +13,8 @@ struct HomeView: View {
     var body: some View {
         
         TabView(selection: $selectedTab) {
+            
+            // Pomodoro Tab - Home
             VStack{
                 HStack{
                     VStack{
@@ -30,7 +32,7 @@ struct HomeView: View {
                             .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/,
                                    alignment: .leading)
                         
-                        Text("You are level ?")
+                        Text("You are level ?") //add level from database
                             .font(.system(size: 14))
                             .padding(.bottom,5)
                             .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/,
@@ -58,6 +60,7 @@ struct HomeView: View {
                 Text("Pomodoro")
             }.tag(0)
             
+            // Profile Tab
             VStack{
                 HStack{
                     VStack{
