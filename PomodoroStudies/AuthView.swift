@@ -19,9 +19,6 @@ struct AuthView: View {
             SignUpView(currentViewShowing: $currentViewShowing)
                 .transition(.move(edge: .bottom))
         }
-            
-        
-        
     }
 }
 

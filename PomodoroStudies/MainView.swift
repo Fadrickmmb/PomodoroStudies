@@ -24,18 +24,25 @@ struct MainView: View {
             
             VStack {
                 HStack {
-                    Image("Pomodoro Studies")
+                    Image("PomodoroNinjaSolo-2")
                         .resizable()
                         .scaledToFill()
-                        .frame(width: 80, height: 80)
+                        .frame(width: 100, height: 160)
                 }
                 .padding(.top)
                 
-                Spacer()
+                Text("Welcome to").padding(.top)
+
+                HStack {
+                    Image("PomodoroNinjaText-2")
+                        .resizable().scaledToFit().frame(width: 240, height: 100)
+                }
+                .padding(.bottom,10)
                 
                 HStack {
                     Image(systemName: "mail")
                     TextField("Username", text: $username)
+                    
                     Spacer()
                     
                     if username.count != 0 {
@@ -46,11 +53,11 @@ struct MainView: View {
                 }
                 .padding()
                 .overlay(
-                    RoundedRectangle(cornerRadius: 10)
+                    RoundedRectangle(cornerRadius: 25)
                         .stroke(lineWidth: 2)
                         .foregroundColor(.black)
                 )
-                .padding()
+                .padding(.leading, 30).padding(.trailing,30)
                 
                 HStack {
                     Image(systemName: "lock")
@@ -65,22 +72,21 @@ struct MainView: View {
                 }
                 .padding()
                 .overlay(
-                    RoundedRectangle(cornerRadius: 10)
+                    RoundedRectangle(cornerRadius: 25)
                         .stroke(lineWidth: 2)
                         .foregroundColor(.black)
                 )
-                .padding()
+                .padding(.leading, 30).padding(.trailing,30).padding(.top,20)
                 
                 Button(action: {
                     withAnimation {
-                        self.currentViewShowing = "signup"
+                        self.currentViewShowing = "signup" //change here to redirect to forgot password
                     }
                 }) {
-                    Text("Don't have an account?")
+                    Text("Forgot Password?")
+                        .font(.system(size: 14))
                         .foregroundColor(.black.opacity(0.7))
-                }
-                
-                Spacer()
+                }.padding(.top,5).padding(.bottom,40)
                 
                 Button {
                     Auth.auth().signIn(withEmail: username, password: password) { authResult, error in
@@ -94,21 +100,28 @@ struct MainView: View {
                         }
                     }
                 } label: {
-                    Text("Log In")
+                    Text("Login")
                         .foregroundColor(.white)
                         .font(.title)
                         .bold()
-                        .frame(maxWidth: 200, maxHeight: 25)
+                        .frame(maxWidth: 140, maxHeight: 25)
                         .padding()
                         .background(
-                            RoundedRectangle(cornerRadius: 10)
+                            RoundedRectangle(cornerRadius: 25)
                                 .fill(Color.red)
                         )
                         .padding(.horizontal)
-                }
+                }.padding(.bottom,10)
                 
-                Spacer()
-                Spacer()
+                Button(action: {
+                    withAnimation {
+                        self.currentViewShowing = "signup"
+                    }
+                }) {
+                    Text("Don't have an account? Register here")
+                        .font(.system(size: 16))
+                        .foregroundColor(.black.opacity(0.7))
+                }.padding(.top,5).padding(.bottom,30)
                 
                 Button(action: {}) {
                     Text("Continue as a Guest")
