@@ -21,32 +21,38 @@ struct SignUpView: View {
             Color.white.edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
             
             VStack{
-                HStack{
-                    Image("Pomodoro Studies")
+                HStack {
+                    Image("PomodoroNinjaSolo-2")
                         .resizable()
                         .scaledToFill()
-                        .frame(width: 80, height: 80)
-                }.padding(.top)
-                Spacer()
+                        .frame(width: 100, height: 160)
+                }
+                .padding(.top)
+                
+                Text("Sign up now and belcome a").padding(.top)
+
+                HStack {
+                    Image("PomodoroNinjaText-2")
+                        .resizable().scaledToFit().frame(width: 240, height: 100)
+                }
+                .padding(.bottom,10)
                 
                 HStack{
                     Image(systemName: "mail")
                     TextField("Username", text: $username)
-                    Spacer()
                     
                     if(username.count != 0){
                         Image(systemName: "checkmark")
                             .fontWeight(.bold)
                             .foregroundColor(.green)
                     }
-                        
                 }
                 .padding()
                 .overlay(
-                    RoundedRectangle(cornerRadius: 10)
+                    RoundedRectangle(cornerRadius: 25)
                         .stroke(lineWidth: 2)
                         .foregroundColor(.black)
-                ).padding()
+                ).padding(.leading, 30).padding(.trailing,30)
                 
                 HStack{
                     Image(systemName: "lock")
@@ -58,17 +64,13 @@ struct SignUpView: View {
                             .fontWeight(.bold)
                             .foregroundColor(.green)
                     }
-                    
-                    
-                    
                 }
                 .padding()
                 .overlay(
-                    RoundedRectangle(cornerRadius: 10)
+                    RoundedRectangle(cornerRadius: 25)
                         .stroke(lineWidth: 2)
                         .foregroundColor(.black)
-                ).padding()
-                
+                ).padding(.leading, 30).padding(.trailing,30).padding(.top,20)
                 
                 Button(action: {
                     withAnimation{
@@ -77,11 +79,9 @@ struct SignUpView: View {
                     
                 }){
                     Text("Already have an Account?")
+                        .font(.system(size: 14))
                         .foregroundColor(.black.opacity(0.7))
-                }
-                
-                Spacer()
-            
+                }.padding(.top,5).padding(.bottom,30)
                 
                 Button{
                     
@@ -97,26 +97,21 @@ struct SignUpView: View {
                     }
                     
                 }label: {
-                    Text("Create Account")
+                    Text("Register")
                         .foregroundColor(.white)
                         .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
                         .bold()
-                    
-                        .frame(maxWidth: 250, maxHeight: 25)
+                        .frame(maxWidth: 140, maxHeight: 25)
                         .padding()
-                    
                         .background(
-                            RoundedRectangle(cornerRadius: 10)
+                            RoundedRectangle(cornerRadius: 25)
                                 .fill(Color.red)
-                        ).padding(.horizontal)
-                }
-                
-                Spacer()
-                Spacer()
-                
+                        ).padding()
+                }.padding(.bottom,20)
                 
                 Button(action: {}){
                     Text("Continue as a Guest")
+                        .font(.system(size: 16))
                         .foregroundColor(.black.opacity(1))
                 }
                 
