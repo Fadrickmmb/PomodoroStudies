@@ -57,7 +57,8 @@ struct HomeView: View {
                 
                 Text("Pomodoro Screen")
             }.tabItem {
-                Text("Pomodoro")
+                Image(systemName: "house").padding(.top,10)
+                Text("Home").padding(.bottom,10)
             }.tag(0)
             
             // Profile Tab
@@ -90,7 +91,8 @@ struct HomeView: View {
                 
                 Text("Profile")
             }.tabItem {
-                Text("Profile")
+                Image(systemName: "person").padding(.top,10)
+                Text("Profile").padding(.bottom,10)
             }.tag(1)
             
             VStack{
@@ -122,7 +124,8 @@ struct HomeView: View {
                 
                 Text("History Screen")
             }.tabItem {
-                Text("History")
+                Image(systemName: "clock").padding(.top,10)
+                Text("History").padding(.bottom,10)
             }.tag(2)
             
             VStack{
@@ -154,7 +157,8 @@ struct HomeView: View {
                 
                 Text("Achievements screen")
             }.tabItem {
-                Text("Achievements")
+                Image(systemName: "star").padding(.top,10)
+                Text("Achievements").padding(.bottom,10)
             }.tag(3)
             
             VStack{
@@ -186,8 +190,9 @@ struct HomeView: View {
                 
                 Text("My studies screen")
             }.tabItem {
+                Image(systemName: "book").padding(.top,10)
                 Text("My Studies").padding(.bottom,10)
-            }.tag(4)
+            }.padding(5).tag(4)
         }.onAppear(){
                 UITabBar.appearance().backgroundColor =  .systemGray5
             }
