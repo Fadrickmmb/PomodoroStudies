@@ -167,6 +167,7 @@ struct HomeView: View {
                         
                         Text("Selected Date").font(.system(size: 24)).fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/).foregroundColor(.red) //retrieve from clicked date on calendar
                         
+                        
                     }
                 }
             }.tabItem {
