@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3711E4222C4F34640040ACA8 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3711E4212C4F34640040ACA8 /* CalendarView.swift */; };
 		D3554F1D2C16161B00756057 /* PomodoroStudiesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3554F1C2C16161B00756057 /* PomodoroStudiesApp.swift */; };
 		D3554F1F2C16161B00756057 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3554F1E2C16161B00756057 /* ContentView.swift */; };
 		D3554F212C16161C00756057 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D3554F202C16161C00756057 /* Assets.xcassets */; };
@@ -44,6 +45,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3711E4212C4F34640040ACA8 /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
 		D3554F192C16161B00756057 /* PomodoroStudies.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PomodoroStudies.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3554F1C2C16161B00756057 /* PomodoroStudiesApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PomodoroStudiesApp.swift; sourceTree = "<group>"; };
 		D3554F1E2C16161B00756057 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -125,6 +127,7 @@
 				D3554F482C161AC200756057 /* MainView.swift */,
 				D3554F4A2C16433800756057 /* SignUpView.swift */,
 				D3554F4C2C16447800756057 /* AuthView.swift */,
+				3711E4212C4F34640040ACA8 /* CalendarView.swift */,
 			);
 			path = PomodoroStudies;
 			sourceTree = "<group>";
@@ -298,6 +301,7 @@
 				D3554F4D2C16447900756057 /* AuthView.swift in Sources */,
 				D3554F492C161AC200756057 /* MainView.swift in Sources */,
 				D3554F1D2C16161B00756057 /* PomodoroStudiesApp.swift in Sources */,
+				3711E4222C4F34640040ACA8 /* CalendarView.swift in Sources */,
 				D3EB0D3D2C2611E00049902C /* HomeView.swift in Sources */,
 				D3554F472C16185300756057 /* SplashView.swift in Sources */,
 				D3EB0D342C2609590049902C /* User.swift in Sources */,

@@ -43,7 +43,6 @@ struct HomeView: View {
                                    alignment: .leading)
                     }.padding()
                     
-                    
                     Button(action: {
                         let firebaseAuth = Auth.auth()
                         do {
@@ -156,39 +155,26 @@ struct HomeView: View {
                 Text("Profile").padding(.bottom,10)
             }.tag(1)
             
-            VStack{
-                HStack{
+            // History tab
+            ZStack{
+                ScrollView{
+                    Spacer(minLength: 30)
                     VStack{
-                        Image("PomodoroNinjaSolo-2")
-                            .resizable()
-                            .scaledToFill()
-                            .frame(width: 40, height: 64)
-                    }.padding()
-                    
-                    VStack{
-                        Text("Hello, user!")
-                            .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
-                            .font(.system(size: 18))
-                            .padding(.bottom,5)
-                            .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/,
-                                   alignment: .leading)
+                        HStack{
+                            CalendarView(interval: DateInterval(start: .distantPast, end:.distantFuture))
+                                .navigationTitle("CalendarView")
+                        }
                         
-                        Text("You are level ?")
-                            .font(.system(size: 14))
-                            .padding(.bottom,5)
-                            .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/,
-                                   alignment: .leading)
-                    }.padding()
-                }.frame(minWidth: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/,maxWidth: .infinity)
-                    .padding(.leading,20)
-                    .padding(.trailing,20)
-                
-                Text("History Screen")
+                        Text("Selected Date").font(.system(size: 24)).fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/).foregroundColor(.red) //retrieve from clicked date on calendar
+                        
+                    }
+                }
             }.tabItem {
                 Image(systemName: "clock").padding(.top,10)
                 Text("History").padding(.bottom,10)
             }.tag(2)
             
+            // Achivements Tab
             VStack{
                 HStack{
                     VStack{
@@ -222,6 +208,7 @@ struct HomeView: View {
                 Text("Achievements").padding(.bottom,10)
             }.tag(3)
             
+            // My Studies Tab
             VStack{
                 HStack{
                     VStack{
@@ -253,7 +240,7 @@ struct HomeView: View {
             }.tabItem {
                 Image(systemName: "book").padding(.top,10)
                 Text("My Studies").padding(.bottom,10)
-            }.padding(5).tag(4)
+            }.tag(4)
         }.onAppear(){
                 UITabBar.appearance().backgroundColor =  .systemGray5
             }
