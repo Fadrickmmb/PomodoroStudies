@@ -14,6 +14,10 @@ struct HomeView: View {
     @State private var userlevel = 0
     @State private var username = ""    //email provided by user
     @State private var points = "0"
+    @State private var sectionname = ""
+    @StateObject private var vm = ViewModel()
+    private let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+    
     var body: some View {
         
         TabView(selection: $selectedTab) {
@@ -58,7 +62,65 @@ struct HomeView: View {
                     .padding(.leading,20)
                     .padding(.trailing,20)
                 
-                Text("Pomodoro Screen")
+                
+                TextField("", text: $sectionname, prompt: Text("Section's name")).multilineTextAlignment(.center).padding(.top,20).font(.system(size: 24)).fontWeight(.bold).padding(.bottom,20)
+                
+                VStack{
+                    Text("\(vm.time)")
+                        .font(.system(size: 70, weight: .medium))
+                        .padding()
+                        .frame(width: 280)
+                        .background(.thinMaterial)
+                        .cornerRadius(40)
+                        .overlay(RoundedRectangle(cornerRadius: 40)
+                            .stroke(.red, lineWidth: 10))
+                        .alert("Pomodoro done!", isPresented:$vm.showingAlert) {
+                            Button("Continue", role: .cancel){
+                                
+                            }
+                        }.padding()
+                    
+                    HStack{
+                        Button{
+                            vm.start(minutes: vm.minutes)
+                        } label: {
+                            Text("START")
+                                .foregroundColor(.white)
+                                .font(.system(size: 22))
+                                .bold()
+                                .frame(maxWidth: 90, maxHeight: 20)
+                                .padding()
+                                .background(
+                                    RoundedRectangle(cornerRadius: 24)
+                                        .fill(Color.black)
+                                )
+                                .padding(.horizontal)
+                            }.disabled(vm.isActive).padding(.bottom,20)
+                        
+                        Button{
+                            vm.reset()
+                        } label: {
+                            Text("RESET")
+                                .foregroundColor(.white)
+                                .font(.system(size: 22))
+                                .bold()
+                                .frame(maxWidth: 90, maxHeight: 20)
+                                .padding()
+                                .background(
+                                    RoundedRectangle(cornerRadius: 24)
+                                        .fill(Color.black)
+                                )
+                                .padding(.horizontal)
+                            }.disabled(vm.isActive).padding(.bottom,20)
+                    }
+
+                       // insert progress bar
+                    
+                }.onReceive(timer){ _ in
+                    vm.upDateCountdown()
+                }
+                
+                
             }.tabItem {
                 Image(systemName: "house").padding(.top,10)
                 Text("Home").padding(.bottom,10)
@@ -226,7 +288,7 @@ struct HomeView: View {
                             .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
                     }.padding(30)
                     
-                    Text("Add list view here")
+                    
                 }
             }.tabItem {
                 Image(systemName: "book").padding(.top,10)
