@@ -15,6 +15,7 @@ struct HomeView: View {
     @State private var username = ""    //email provided by user
     @State private var points = "0"
     @State private var sectionname = ""
+    @State private var progress: Float = 0.0
     @StateObject private var vm = ViewModel()
     private let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     
@@ -63,7 +64,7 @@ struct HomeView: View {
                     .padding(.trailing,20)
                 
                 
-                TextField("", text: $sectionname, prompt: Text("Section's name")).multilineTextAlignment(.center).padding(.top,20).font(.system(size: 24)).fontWeight(.bold).padding(.bottom,20)
+                TextField("", text: $sectionname, prompt: Text("Section's name")).multilineTextAlignment(.center).padding(.top,15).font(.system(size: 24)).fontWeight(.bold).padding(.bottom,20)
                 
                 VStack{
                     Text("\(vm.time)")
@@ -113,12 +114,79 @@ struct HomeView: View {
                                 .padding(.horizontal)
                             }.disabled(vm.isActive).padding(.bottom,20)
                     }
-
-                       // insert progress bar
                     
-                }.onReceive(timer){ _ in
+                    if(vm.minutes > 5.00){
+                        HStack{
+                            Text("Focus")
+                                .foregroundStyle(.white)
+                                .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
+                                .font(.system(size: 24))
+                                .padding()
+                        }.frame(width: 200,height: 40)
+                            .background(Color.red)
+                            .cornerRadius(30)
+                        HStack{
+                            Text("Rest")
+                                .foregroundStyle(.white)
+                                .font(.system(size: 24))
+                                .padding()
+                        }.frame(width: 120,height: 40)
+                            .background(Color.gray.opacity(0.3))
+                            .cornerRadius(30)
+                    } else {
+                        if(vm.minutes < 5.00) {
+                            HStack{
+                                Text("Focus")
+                                    .foregroundStyle(.white)
+                                    .font(.system(size: 24))
+                                    .padding()
+                            }.frame(width: 120,height: 40)
+                                .background(Color.gray.opacity(0.3))
+                                .cornerRadius(30)
+                            HStack{
+                                Text("Rest")
+                                    .foregroundStyle(.white)
+                                    .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
+                                    .font(.system(size: 24))
+                                    .padding()
+                            }.frame(width: 200,height: 40)
+                                .background(Color.red)
+                                .cornerRadius(30)
+                        }
+                    }
+                 }.onReceive(timer){ _ in
                     vm.upDateCountdown()
                 }
+                
+                HStack{
+                    VStack{
+                        Text("1")
+                            .foregroundStyle(Color.gray.opacity(0.8))
+                            .font(.system(size: 40))
+                            .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
+                        Text("Focus")
+                            .foregroundStyle(Color.gray.opacity(0.8))
+                            .font(.system(size: 24))
+                            .padding(.leading,10)
+                            .padding(.trailing,10)
+                    }.padding()
+                    Divider()
+                        .frame(width: 3,height: 100)
+                        .overlay(.gray)                        .padding(.top,20)
+                    VStack{
+                        Text("1")
+                            .foregroundStyle(Color.gray.opacity(0.8))
+                            .font(.system(size: 40))
+                            .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
+                        Text("Rest")
+                            .foregroundStyle(Color.gray.opacity(0.8))
+                            .font(.system(size: 24))
+                            .padding(.leading,20)
+                            .padding(.trailing,20)
+                    }.padding()
+                }.padding(.top,30)
+                    .padding(.bottom,30)
+                    .frame(width: 400,height: 100)
                 
                 
             }.tabItem {
