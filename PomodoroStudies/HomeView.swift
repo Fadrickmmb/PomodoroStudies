@@ -17,6 +17,9 @@ struct HomeView: View {
     @State private var sectionname = ""
     @State private var progress: Float = 0.0
     @StateObject private var vm = ViewModel()
+    
+    @EnvironmentObject var viewModel: ToDoViewModel
+
     private let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     
     var body: some View {
@@ -75,11 +78,11 @@ struct HomeView: View {
                         .cornerRadius(40)
                         .overlay(RoundedRectangle(cornerRadius: 40)
                             .stroke(.red, lineWidth: 10))
-                        .alert("Pomodoro done!", isPresented:$vm.showingAlert) {
+                        /*.alert("Pomodoro done!", isPresented:$vm.showingAlert) {
                             Button("Continue", role: .cancel){
                                 
                             }
-                        }.padding()
+                        }.padding()*/
                     
                     HStack{
                         Button{
@@ -356,7 +359,10 @@ struct HomeView: View {
                             .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
                     }.padding(30)
                     
-                    
+                    VStack{
+                        ToDoFormView(viewModel: viewModel)
+                        ToDoListView(viewModel: viewModel)
+                    }
                 }
             }.tabItem {
                 Image(systemName: "book").padding(.top,10)
