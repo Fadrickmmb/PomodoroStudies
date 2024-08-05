@@ -123,10 +123,7 @@ struct MainView: View {
                         .foregroundColor(.black.opacity(0.7))
                 }.padding(.top,5).padding(.bottom,30)
                 
-                Button(action: {}) {
-                    Text("Continue as a Guest")
-                        .foregroundColor(.black.opacity(1))
-                }
+                
             }
         }
     }

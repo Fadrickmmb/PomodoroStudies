@@ -10,5 +10,6 @@ import Foundation
 struct User:Identifiable, Codable{
     var id: String = UUID().uuidString
     var name: String
+    var email: String
     var password: String
 }

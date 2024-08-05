@@ -7,18 +7,20 @@
 
 import SwiftUI
 import FirebaseAuth
+import FirebaseDatabase
 
 struct SignUpView: View {
     
     @Binding var currentViewShowing: String
     
+    @State private var email: String = ""
     @State private var username: String = ""
     @State private var password: String = ""
     
     var body: some View {
        
         ZStack{
-            Color.white.edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
+            Color.white.edgesIgnoringSafeArea(.all)
             
             VStack{
                 HStack {
@@ -29,7 +31,7 @@ struct SignUpView: View {
                 }
                 .padding(.top)
                 
-                Text("Sign up now and belcome a").padding(.top)
+                Text("Sign up now and become a").padding(.top)
 
                 HStack {
                     Image("PomodoroNinjaText-2")
@@ -38,7 +40,7 @@ struct SignUpView: View {
                 .padding(.bottom,10)
                 
                 HStack{
-                    Image(systemName: "mail")
+                    Image(systemName: "person")
                     TextField("Username", text: $username)
                     
                     if(username.count != 0){
@@ -53,6 +55,23 @@ struct SignUpView: View {
                         .stroke(lineWidth: 2)
                         .foregroundColor(.black)
                 ).padding(.leading, 30).padding(.trailing,30)
+                
+                HStack{
+                    Image(systemName: "mail")
+                    TextField("Email", text: $email)
+                    
+                    if(email.count != 0){
+                        Image(systemName: "checkmark")
+                            .fontWeight(.bold)
+                            .foregroundColor(.green)
+                    }
+                }
+                .padding()
+                .overlay(
+                    RoundedRectangle(cornerRadius: 25)
+                        .stroke(lineWidth: 2)
+                        .foregroundColor(.black)
+                ).padding(.leading, 30).padding(.trailing,30).padding(.top,20)
                 
                 HStack{
                     Image(systemName: "lock")
@@ -84,22 +103,34 @@ struct SignUpView: View {
                 }.padding(.top,5).padding(.bottom,30)
                 
                 Button{
-                    
-                    Auth.auth().createUser(withEmail: username, password: password) { authResult, error in
+                    Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
                         if let error = error{
                             print(error)
                             return
                         }
                         
                         if let authResult = authResult{
-                            print(authResult.user.uid)
+                            let user = User(name: username, email: email, password: password)
+                            let ref = Database.database().reference()
+                            ref.child("users").child(authResult.user.uid).setValue([
+                                "id": user.id,
+                                "name": user.name,
+                                "email": user.email,
+                                "password": user.password
+                            ]) { (error, ref) in
+                                if let error = error {
+                                    print(error.localizedDescription)
+                                } else {
+                                    print("User saved successfully")
+                                }
+                            }
                         }
                     }
                     
                 }label: {
                     Text("Register")
                         .foregroundColor(.white)
-                        .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
+                        .font(.title)
                         .bold()
                         .frame(maxWidth: 140, maxHeight: 25)
                         .padding()
@@ -109,14 +140,15 @@ struct SignUpView: View {
                         ).padding()
                 }.padding(.bottom,20)
                 
-                Button(action: {}){
-                    Text("Continue as a Guest")
-                        .font(.system(size: 16))
-                        .foregroundColor(.black.opacity(1))
-                }
                 
             }
         }
         
+    }
+}
+
+struct SignUpView_Previews: PreviewProvider {
+    static var previews: some View {
+        SignUpView(currentViewShowing: .constant("signup"))
     }
 }

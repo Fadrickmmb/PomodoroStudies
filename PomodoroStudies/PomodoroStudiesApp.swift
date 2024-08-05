@@ -10,6 +10,7 @@ import FirebaseCore
 
 @main
 struct PomodoroStudiesApp: App {
+    @StateObject private var viewModel = ToDoViewModel()
     
     init(){
         FirebaseApp.configure()
