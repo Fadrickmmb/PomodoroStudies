@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3711E4222C4F34640040ACA8 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3711E4212C4F34640040ACA8 /* CalendarView.swift */; };
+		372C56D92C59997700797839 /* PomTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372C56D82C59997700797839 /* PomTimer.swift */; };
+		3771C2F32C5B256C00731D20 /* ToDoListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3771C2F22C5B256C00731D20 /* ToDoListView.swift */; };
+		3771C2F52C5B260100731D20 /* ToDo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3771C2F42C5B260100731D20 /* ToDo.swift */; };
+		3771C2F72C5B263600731D20 /* ToDoFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3771C2F62C5B263600731D20 /* ToDoFormView.swift */; };
+		3771C2F92C5B267000731D20 /* ToDoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3771C2F82C5B267000731D20 /* ToDoViewModel.swift */; };
 		D3554F1D2C16161B00756057 /* PomodoroStudiesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3554F1C2C16161B00756057 /* PomodoroStudiesApp.swift */; };
 		D3554F1F2C16161B00756057 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3554F1E2C16161B00756057 /* ContentView.swift */; };
 		D3554F212C16161C00756057 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D3554F202C16161C00756057 /* Assets.xcassets */; };
@@ -44,6 +50,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3711E4212C4F34640040ACA8 /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
+		372C56D82C59997700797839 /* PomTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PomTimer.swift; sourceTree = "<group>"; };
+		3771C2F22C5B256C00731D20 /* ToDoListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoListView.swift; sourceTree = "<group>"; };
+		3771C2F42C5B260100731D20 /* ToDo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDo.swift; sourceTree = "<group>"; };
+		3771C2F62C5B263600731D20 /* ToDoFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoFormView.swift; sourceTree = "<group>"; };
+		3771C2F82C5B267000731D20 /* ToDoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoViewModel.swift; sourceTree = "<group>"; };
 		D3554F192C16161B00756057 /* PomodoroStudies.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PomodoroStudies.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3554F1C2C16161B00756057 /* PomodoroStudiesApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PomodoroStudiesApp.swift; sourceTree = "<group>"; };
 		D3554F1E2C16161B00756057 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -125,6 +137,12 @@
 				D3554F482C161AC200756057 /* MainView.swift */,
 				D3554F4A2C16433800756057 /* SignUpView.swift */,
 				D3554F4C2C16447800756057 /* AuthView.swift */,
+				3711E4212C4F34640040ACA8 /* CalendarView.swift */,
+				372C56D82C59997700797839 /* PomTimer.swift */,
+				3771C2F22C5B256C00731D20 /* ToDoListView.swift */,
+				3771C2F42C5B260100731D20 /* ToDo.swift */,
+				3771C2F62C5B263600731D20 /* ToDoFormView.swift */,
+				3771C2F82C5B267000731D20 /* ToDoViewModel.swift */,
 			);
 			path = PomodoroStudies;
 			sourceTree = "<group>";
@@ -295,11 +313,17 @@
 			files = (
 				D3554F1F2C16161B00756057 /* ContentView.swift in Sources */,
 				D3554F4B2C16433800756057 /* SignUpView.swift in Sources */,
+				372C56D92C59997700797839 /* PomTimer.swift in Sources */,
+				3771C2F52C5B260100731D20 /* ToDo.swift in Sources */,
 				D3554F4D2C16447900756057 /* AuthView.swift in Sources */,
 				D3554F492C161AC200756057 /* MainView.swift in Sources */,
 				D3554F1D2C16161B00756057 /* PomodoroStudiesApp.swift in Sources */,
+				3711E4222C4F34640040ACA8 /* CalendarView.swift in Sources */,
+				3771C2F32C5B256C00731D20 /* ToDoListView.swift in Sources */,
 				D3EB0D3D2C2611E00049902C /* HomeView.swift in Sources */,
+				3771C2F72C5B263600731D20 /* ToDoFormView.swift in Sources */,
 				D3554F472C16185300756057 /* SplashView.swift in Sources */,
+				3771C2F92C5B267000731D20 /* ToDoViewModel.swift in Sources */,
 				D3EB0D342C2609590049902C /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
