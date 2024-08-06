@@ -14,6 +14,7 @@
 		3771C2F72C5B263600731D20 /* ToDoFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3771C2F62C5B263600731D20 /* ToDoFormView.swift */; };
 		3771C2F92C5B267000731D20 /* ToDoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3771C2F82C5B267000731D20 /* ToDoViewModel.swift */; };
 		D30145E12C6063EC00629B90 /* FirebaseDatabaseSwift in Frameworks */ = {isa = PBXBuildFile; productRef = D30145E02C6063EC00629B90 /* FirebaseDatabaseSwift */; };
+		D30145E32C61B2B300629B90 /* ForgotPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D30145E22C61B2B300629B90 /* ForgotPasswordView.swift */; };
 		D3554F1D2C16161B00756057 /* PomodoroStudiesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3554F1C2C16161B00756057 /* PomodoroStudiesApp.swift */; };
 		D3554F1F2C16161B00756057 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3554F1E2C16161B00756057 /* ContentView.swift */; };
 		D3554F212C16161C00756057 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D3554F202C16161C00756057 /* Assets.xcassets */; };
@@ -57,6 +58,7 @@
 		3771C2F42C5B260100731D20 /* ToDo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDo.swift; sourceTree = "<group>"; };
 		3771C2F62C5B263600731D20 /* ToDoFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoFormView.swift; sourceTree = "<group>"; };
 		3771C2F82C5B267000731D20 /* ToDoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoViewModel.swift; sourceTree = "<group>"; };
+		D30145E22C61B2B300629B90 /* ForgotPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordView.swift; sourceTree = "<group>"; };
 		D3554F192C16161B00756057 /* PomodoroStudies.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PomodoroStudies.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3554F1C2C16161B00756057 /* PomodoroStudiesApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PomodoroStudiesApp.swift; sourceTree = "<group>"; };
 		D3554F1E2C16161B00756057 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -145,6 +147,7 @@
 				3771C2F42C5B260100731D20 /* ToDo.swift */,
 				3771C2F62C5B263600731D20 /* ToDoFormView.swift */,
 				3771C2F82C5B267000731D20 /* ToDoViewModel.swift */,
+				D30145E22C61B2B300629B90 /* ForgotPasswordView.swift */,
 			);
 			path = PomodoroStudies;
 			sourceTree = "<group>";
@@ -327,6 +330,7 @@
 				3771C2F72C5B263600731D20 /* ToDoFormView.swift in Sources */,
 				D3554F472C16185300756057 /* SplashView.swift in Sources */,
 				3771C2F92C5B267000731D20 /* ToDoViewModel.swift in Sources */,
+				D30145E32C61B2B300629B90 /* ForgotPasswordView.swift in Sources */,
 				D3EB0D342C2609590049902C /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
