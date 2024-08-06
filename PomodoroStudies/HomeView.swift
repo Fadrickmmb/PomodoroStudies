@@ -21,7 +21,8 @@ struct HomeView: View {
     @StateObject private var vm = ViewModel()
     
     @EnvironmentObject var viewModel: ToDoViewModel
-    
+    @Environment(\.presentationMode) var presentationMode
+
     private let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     
     var body: some View {
@@ -51,12 +52,7 @@ struct HomeView: View {
                     }.padding()
                     
                     Button(action: {
-                        let firebaseAuth = Auth.auth()
-                        do {
-                            try firebaseAuth.signOut()
-                        } catch let signOutError as NSError {
-                            print("Error signing out: %@", signOutError)
-                        }
+                        logOut()
                     }) {
                         Image(systemName: "rectangle.portrait.and.arrow.right").padding()
                     }
@@ -369,7 +365,8 @@ struct HomeView: View {
                 Text("Achievements").padding(.bottom, 10)
             }.tag(3)
             
-            // My Studies Tab
+            // Commenting out My Studies Tab
+            /*
             ZStack {
                 VStack(alignment: .center) {
                     HStack {
@@ -393,11 +390,13 @@ struct HomeView: View {
                 Image(systemName: "book").padding(.top, 10)
                 Text("My Studies").padding(.bottom, 10)
             }.tag(4)
+            */
         }
         .onAppear() {
             UITabBar.appearance().backgroundColor = .systemGray5
             fetchUserData()
         }
+        .navigationBarBackButtonHidden(true)
     }
     
     func fetchUserData() {
@@ -440,6 +439,7 @@ struct HomeView: View {
     func logOut() {
         do {
             try Auth.auth().signOut()
+            self.presentationMode.wrappedValue.dismiss()
         } catch let signOutError as NSError {
             print("Error signing out: %@", signOutError)
         }
