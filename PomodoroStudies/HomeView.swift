@@ -1,10 +1,3 @@
-//
-//  HomeView.swift
-//  PomodoroStudies
-//
-//  Created by Fadrick Barroso on 2024-06-21.
-//
-
 import SwiftUI
 import FirebaseAuth
 import FirebaseDatabase
@@ -18,7 +11,12 @@ struct HomeView: View {
     @State private var points = "0"
     @State private var sectionname = ""
     @State private var progress: Float = 0.0
+    @State private var focusCount = 0
+    @State private var restCount = 0
     @StateObject private var vm = ViewModel()
+    @State private var currentPommieID: String? = nil
+    @State private var pommies: [Pommie] = []
+
     
     @EnvironmentObject var viewModel: ToDoViewModel
     @Environment(\.presentationMode) var presentationMode
@@ -98,7 +96,7 @@ struct HomeView: View {
                         .padding(.bottom, 20)
                         
                         Button {
-                            vm.reset()
+                            reset()
                         } label: {
                             Text("RESET")
                                 .foregroundColor(.white)
@@ -116,59 +114,46 @@ struct HomeView: View {
                         .padding(.bottom, 20)
                     }
                     
-                    if(vm.minutes > 5.00) {
-                        HStack {
-                            Text("Focus")
-                                .foregroundStyle(.white)
-                                .fontWeight(.bold)
-                                .font(.system(size: 24))
-                                .padding()
-                        }
-                        .frame(width: 200, height: 40)
-                        .background(Color.red)
-                        .cornerRadius(30)
-                        
-                        HStack {
-                            Text("Rest")
-                                .foregroundStyle(.white)
-                                .font(.system(size: 24))
-                                .padding()
-                        }
-                        .frame(width: 120, height: 40)
-                        .background(Color.gray.opacity(0.3))
-                        .cornerRadius(30)
-                    } else {
-                        if(vm.minutes < 5.00) {
-                            HStack {
-                                Text("Focus")
-                                    .foregroundStyle(.white)
-                                    .font(.system(size: 24))
-                                    .padding()
-                            }
+                    HStack {
+                        // Focus Button
+                        Text("Focus")
+                            .foregroundStyle(vm.minutes > 29.45 ? .white : .gray.opacity(0.3))
+                            .fontWeight(vm.minutes > 29.45 ? .bold : .regular)
+                            .font(.system(size: 24))
+                            .padding()
                             .frame(width: 120, height: 40)
-                            .background(Color.gray.opacity(0.3))
+                            .background(vm.minutes > 29.45 ? Color.red : Color.gray.opacity(0.3))
                             .cornerRadius(30)
-                            
-                            HStack {
-                                Text("Rest")
-                                    .foregroundStyle(.white)
-                                    .fontWeight(.bold)
-                                    .font(.system(size: 24))
-                                    .padding()
-                            }
-                            .frame(width: 200, height: 40)
-                            .background(Color.red)
+                        
+                        // Rest Button
+                        Text("Rest")
+                            .foregroundStyle(vm.minutes <= 29.45 && vm.minutes > 29.30 ? .white : .gray.opacity(0.3))
+                            .fontWeight(vm.minutes <= 29.45 && vm.minutes > 29.30 ? .bold : .regular)
+                            .font(.system(size: 24))
+                            .padding()
+                            .frame(width: 120, height: 40)
+                            .background(vm.minutes <= 29.45 && vm.minutes > 29.30 ? Color.red : Color.gray.opacity(0.3))
                             .cornerRadius(30)
-                        }
                     }
+
                 }
                 .onReceive(timer) { _ in
                     vm.upDateCountdown()
+                    
+                    if vm.time == "29:45"{
+                        addOrUpdatePommie()
+                        focusCount += 1
+                    }
+                    if vm.time == "29:30"{
+                        restCount += 1
+                        vm.reset()
+                    }
+                    
                 }
                 
                 HStack {
                     VStack {
-                        Text("1")
+                        Text("\(focusCount)")
                             .foregroundStyle(Color.gray.opacity(0.8))
                             .font(.system(size: 40))
                             .fontWeight(.bold)
@@ -185,7 +170,7 @@ struct HomeView: View {
                         .padding(.top, 20)
                     
                     VStack {
-                        Text("1")
+                        Text("\(restCount)")
                             .foregroundStyle(Color.gray.opacity(0.8))
                             .font(.system(size: 40))
                             .fontWeight(.bold)
@@ -302,24 +287,40 @@ struct HomeView: View {
                 ScrollView {
                     Spacer(minLength: 30)
                     VStack {
-                        HStack {
-                            CalendarView(interval: DateInterval(start: .distantPast, end: .distantFuture))
-                                .navigationTitle("CalendarView")
+                        Text("Your Last Pommies")
+                            .font(.title)
+                            .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
+                            .padding()
+                        
+                        ForEach(pommies, id: \.id) { pommie in
+                            HStack {
+                                Text(pommie.name)
+                                    .font(.headline)
+                                    .padding(.leading)
+
+                                Spacer()
+
+                                Text("Completed Poms: \(pommie.completedPoms)")
+                                    .padding(.trailing)
+                                }
+                                .padding(.vertical)
+                                .background(Color(.secondarySystemBackground))
+                                .cornerRadius(10)
+                                .padding(.horizontal)
                         }
-                        
-                        Text("Selected Date")
-                            .font(.system(size: 24))
-                            .fontWeight(.bold)
-                            .foregroundColor(.red)
-                            .padding(.bottom, 30)
-                        
-                        Text("History List View here")
+                    
                     }
                 }
             }.tabItem {
                 Image(systemName: "clock").padding(.top, 10)
                 Text("History").padding(.bottom, 10)
-            }.tag(2)
+            }
+            .tag(2)
+            .onAppear{
+                fetchUserData()
+                fetchLast10Pommies()
+            }
+            
             
             // Achievements Tab
             VStack {
@@ -332,7 +333,7 @@ struct HomeView: View {
                             .fontWeight(.bold)
                             .foregroundColor(.white)
                             .padding(.top, 60)
-                        Image("02")
+                        Image(getImageForLevel())
                             .resizable()
                             .scaledToFill()
                             .frame(width: 260, height: 240)
@@ -354,11 +355,22 @@ struct HomeView: View {
                                 .foregroundColor(.red)
                         }.padding(40)
                         
-                        let ul = userlevel + 1
-                        Text("Points missing to Level " + String(ul))
-                        ProgressView(value: 0, total: 100).padding(20)
-                        Text("220 / 400")
-                    }.padding()
+                        
+                        Text("Points missing to Level \(userlevel + 1)")
+                            
+                            let splitPoints = points.split(separator: "/")
+                            if splitPoints.count == 2,
+                               let currentXP = Float(splitPoints[0].trimmingCharacters(in: .whitespacesAndNewlines)),
+                               let totalXP = Float(splitPoints[1].trimmingCharacters(in: .whitespacesAndNewlines)) {
+                                
+                                ProgressView(value: currentXP, total: totalXP)
+                                    .padding(20)
+                            } else {
+                                Text("Invalid XP data").foregroundColor(.red)
+                            }
+                            
+                            Text(points)
+                        }.padding()
                 }
             }.tabItem {
                 Image(systemName: "star").padding(.top, 10)
@@ -399,6 +411,15 @@ struct HomeView: View {
         .navigationBarBackButtonHidden(true)
     }
     
+    func reset() {
+        vm.reset()
+        currentPommieID = nil
+        focusCount = 0
+        restCount = 0
+        sectionname = ""
+    }
+
+    
     func fetchUserData() {
         guard let user = Auth.auth().currentUser else { return }
         let ref = Database.database().reference().child("users").child(user.uid)
@@ -406,10 +427,68 @@ struct HomeView: View {
         ref.observeSingleEvent(of: .value) { snapshot in
             if let data = snapshot.value as? [String: Any] {
                 self.name = data["name"] as? String ?? ""
-                self.userlevel = data["level"] as? Int ?? 0
+                let xp = data["xp"] as? Double ?? 0
+                self.userlevel = calculateUserLevel(from: xp)
+                let nextLevelXP = xpForNextLevel(currentLevel: self.userlevel)
+                self.points = "\(Int(xp)) / \(Int(nextLevelXP))"
             }
         }
     }
+
+    
+    func calculateUserLevel(from xp: Double) -> Int {
+        switch xp {
+        case 0..<800:
+            return 1
+        case 800..<1500:
+            return 2
+        case 1500..<2700:
+            return 3
+        case 2700..<3800:
+            return 4
+        case 3800..<123456:
+            return 5
+        default:
+            return 1
+        }
+    }
+    
+    func xpForNextLevel(currentLevel: Int) -> Double {
+        switch currentLevel {
+        case 1:
+            return 800
+        case 2:
+            return 1500
+        case 3:
+            return 2700
+        case 4:
+            return 3800
+        case 5:
+            return 123456
+        default:
+            return 800
+        }
+    }
+
+    
+    func getImageForLevel() -> String {
+        switch userlevel {
+        case 1:
+            return "01"
+        case 2:
+            return "02"
+        case 3:
+            return "03"
+        case 4:
+            return "04"
+        case 5:
+            return "05"
+        default:
+            return "01"
+        }
+    }
+
+    
     
     func saveUserDetails() {
         guard let user = Auth.auth().currentUser else { return }
@@ -444,6 +523,94 @@ struct HomeView: View {
             print("Error signing out: %@", signOutError)
         }
     }
+    
+    func addOrUpdatePommie() {
+        guard let user = Auth.auth().currentUser else { return }
+        let ref = Database.database().reference().child("pommies").child(user.uid)
+        
+        if let currentPommieID = currentPommieID {
+            let currentPommieRef = ref.child(currentPommieID)
+            currentPommieRef.runTransactionBlock({ currentData in
+                if var pommieData = currentData.value as? [String: AnyObject] {
+                    var completedPoms = pommieData["completedPoms"] as? Int ?? 0
+                    completedPoms += 1
+                    pommieData["completedPoms"] = completedPoms as AnyObject
+                    currentData.value = pommieData
+                    return TransactionResult.success(withValue: currentData)
+                }
+                return TransactionResult.success(withValue: currentData)
+            }) { error, _, _ in
+                if let error = error {
+                    print("Failed to update Pommie: \(error.localizedDescription)")
+                } else {
+                    print("Pommie updated successfully.")
+                    increaseUserXP(by: 100)
+                }
+            }
+        } else {
+            let newPommie = Pommie(name: sectionname, completedPoms: 1)
+            let newPommieData = [
+                "id": newPommie.id.uuidString,
+                "name": newPommie.name,
+                "completedPoms": newPommie.completedPoms
+            ] as [String : Any]
+            
+            ref.child(newPommie.id.uuidString).setValue(newPommieData) { error, _ in
+                if let error = error {
+                    print("Failed to add new Pommie: \(error.localizedDescription)")
+                } else {
+                    currentPommieID = newPommie.id.uuidString
+                    print("New Pommie added successfully.")
+                    increaseUserXP(by: 100)
+                }
+            }
+        }
+    }
+    
+    func increaseUserXP(by xp: Double) {
+        guard let user = Auth.auth().currentUser else { return }
+        let ref = Database.database().reference().child("users").child(user.uid)
+        
+        ref.runTransactionBlock({ currentData in
+            if var userData = currentData.value as? [String: AnyObject] {
+                var currentXP = userData["xp"] as? Double ?? 0
+                currentXP += xp
+                userData["xp"] = currentXP as AnyObject
+                currentData.value = userData
+                return TransactionResult.success(withValue: currentData)
+            }
+            return TransactionResult.success(withValue: currentData)
+        }, andCompletionBlock: { error, committed, snapshot in
+            if let error = error {
+                print("Failed to update user XP: \(error.localizedDescription)")
+            } else {
+                print("User XP updated successfully.")
+            }
+        })
+    }
+    
+    
+    func fetchLast10Pommies() {
+        guard let user = Auth.auth().currentUser else { return }
+        let ref = Database.database().reference().child("pommies").child(user.uid)
+        
+        ref.queryOrdered(byChild: "completedPoms").queryLimited(toLast: 10).observe(.value) { snapshot in
+            var pommies: [Pommie] = []
+            
+            for child in snapshot.children.allObjects as! [DataSnapshot] {
+                if let pommieData = child.value as? [String: Any],
+                   let name = pommieData["name"] as? String,
+                   let completedPoms = pommieData["completedPoms"] as? Int {
+                    let pommie = Pommie(name: name, completedPoms: completedPoms)
+                    pommies.append(pommie)
+                }
+            }
+            self.pommies = pommies.reversed()
+        }
+    }
+
+
+    
 }
 
 #Preview {

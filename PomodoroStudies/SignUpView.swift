@@ -110,13 +110,14 @@ struct SignUpView: View {
                             }
                             
                             if let authResult = authResult {
-                                let user = User(name: username, email: email, password: password)
+                                let user = User(name: username, email: email, password: password, xp: 0)
                                 let ref = Database.database().reference()
                                 ref.child("users").child(authResult.user.uid).setValue([
                                     "id": user.id,
                                     "name": user.name,
                                     "email": user.email,
-                                    "password": user.password
+                                    "password": user.password,
+                                    "xp": 0
                                 ]) { (error, ref) in
                                     if let error = error {
                                         print(error.localizedDescription)

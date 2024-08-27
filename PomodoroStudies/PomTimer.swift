@@ -1,10 +1,3 @@
-//
-//  PomTimer.swift
-//  PomodoroStudies
-//
-//  Created by user264550 on 7/30/24.
-//
-
 import Foundation
 
 extension HomeView {
@@ -18,23 +11,24 @@ extension HomeView {
             }
         }
         
-        private var initialTime = 0
+        private var initialTime: Float = 30.0
         private var endDate = Date()
         
         func start(minutes: Float){
-            self.initialTime = Int(minutes)
-            self.endDate = Date()
+            self.initialTime = minutes
+            self.endDate = Calendar.current.date(byAdding: .minute, value: Int(minutes), to: Date())!
             self.isActive = true
-            self.endDate = Calendar.current.date(byAdding: .minute, value: Int(minutes), to: endDate)!
         }
         
         func reset() {
-            self.minutes = Float(initialTime)
             self.isActive = false
-            self.time = "\(Int(minutes)):00"
+            self.minutes = initialTime
+            self.time = "\(Int(initialTime)):00"
         }
         
         func upDateCountdown() {
+            guard isActive else { return }
+            
             let now = Date()
             let diff = endDate.timeIntervalSince1970 - now.timeIntervalSince1970
             
@@ -50,8 +44,7 @@ extension HomeView {
             let minutes = calendar.component(.minute, from: date)
             let seconds = calendar.component(.second, from: date)
             
-            self.minutes = Float(minutes)
             self.time = String(format: "%d:%02d", minutes, seconds)
-        }        
+        }
     }
 }
