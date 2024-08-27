@@ -13,12 +13,17 @@ struct AuthView: View {
     
     var body: some View {
         
-        if(currentViewShowing == "login"){
-            MainView(currentViewShowing: $currentViewShowing)
-        }else{
-            SignUpView(currentViewShowing: $currentViewShowing)
+        if currentViewShowing == "login" {
+                    MainView(currentViewShowing: $currentViewShowing)
                 .transition(.move(edge: .bottom))
-        }
+                } else if currentViewShowing == "signup" {
+                    SignUpView(currentViewShowing: $currentViewShowing)
+                        .transition(.move(edge: .bottom))
+                } else if currentViewShowing == "forgotPassword" {
+                    ForgotPasswordView(currentViewShowing: $currentViewShowing)
+                        .transition(.move(edge: .bottom))
+                }
+        
     }
 }
 
