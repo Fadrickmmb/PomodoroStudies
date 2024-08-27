@@ -3,17 +3,17 @@
 <plist version="1.0">
 <dict>
 	<key>API_KEY</key>
-	<string>AIzaSyA3nLWKRPXF3WBn7X91ZAkkKZQ3rQ7bc4Y</string>
+	<string>AIzaSyBK9612n_bD7siorG4O_CAazmY0J6i1dMw</string>
 	<key>GCM_SENDER_ID</key>
-	<string>786209425294</string>
+	<string>217500269713</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>pomodoro.PomodoroStudies</string>
 	<key>PROJECT_ID</key>
-	<string>pomodorostudies-4e0cb</string>
+	<string>pomodoroninja-cc8ce</string>
 	<key>STORAGE_BUCKET</key>
-	<string>pomodorostudies-4e0cb.appspot.com</string>
+	<string>pomodoroninja-cc8ce.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -25,6 +25,8 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:786209425294:ios:b62bf72f064f30c32706df</string>
+	<string>1:217500269713:ios:d7863125d486763d77d330</string>
+	<key>DATABASE_URL</key>
+	<string>https://pomodoroninja-cc8ce-default-rtdb.firebaseio.com</string>
 </dict>
 </plist>
